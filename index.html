@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вишлист Влада на ДР 🎂</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0c0e16;
+    --surface: #12151f;
+    --card: #161a27;
+    --border: #1f2438;
+    --text: #eceef8;
+    --muted: #6b7099;
+    --green: #1eff8e;
+    --green-bg: rgba(30,255,142,0.08);
+    --green-border: rgba(30,255,142,0.25);
+    --yellow: #ffd426;
+    --yellow-bg: rgba(255,212,38,0.08);
+    --yellow-border: rgba(255,212,38,0.25);
+    --red: #ff4d6a;
+    --red-bg: rgba(255,77,106,0.08);
+    --red-border: rgba(255,77,106,0.25);
+    --accent: #c084fc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 60px 20px 48px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(192,132,252,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(192,132,252,0.1);
+    border: 1px solid rgba(192,132,252,0.25);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(26px, 6vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  h1 span {
+    background: linear-gradient(135deg, var(--accent), #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 380px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding: 0 20px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .legend-item.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+  .legend-item.yellow { background: var(--yellow-bg); border-color: var(--yellow-border); color: var(--yellow); }
+  .legend-item.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot.green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .dot.yellow { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+  .dot.red { background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+  /* LIST */
+  .list {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.15s, border-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+
+  .card.green { border-color: var(--green-border); }
+  .card.green::after { background: var(--green); }
+  .card.yellow { border-color: var(--yellow-border); }
+  .card.yellow::after { background: var(--yellow); }
+  .card.red { border-color: var(--red-border); }
+  .card.red::after { background: var(--red); }
+
+  .card:hover { transform: translateX(4px); }
+  .card.green:hover { border-color: var(--green); }
+  .card.yellow:hover { border-color: var(--yellow); }
+  .card.red:hover { border-color: var(--red); }
+
+  .priority-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .green .priority-badge { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .yellow .priority-badge { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .red .priority-badge { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+
+  .card-info { flex: 1; min-width: 0; }
+
+  .card-category {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .card-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-price {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  .card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .buy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  .buy-btn:hover { opacity: 0.85; transform: scale(1.04); }
+
+  .green .buy-btn { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .yellow .buy-btn { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .red .buy-btn { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+
+  .arrow { font-size: 14px; }
+
+  /* TOTAL */
+  .total {
+    max-width: 680px;
+    margin: 32px auto 0;
+    padding: 0 16px;
+  }
+
+  .total-inner {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .total-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .total-amount {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--accent), #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .total-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 260px;
+    text-align: right;
+  }
+
+  @media (max-width: 480px) {
+    .card-name { font-size: 13px; }
+    .total-note { text-align: left; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">🎂 день народження</div>
+  <h1>Вишлист<br><span>Влада</span> на ДР</h1>
+  <p class="hero-sub">Натисни на будь-який подарунок — перейдеш одразу на сторінку товару 🎁</p>
+</div>
+
+<div class="legend">
+  <div class="legend-item green"><div class="dot green"></div> Дуже потрібно (8–10)</div>
+  <div class="legend-item yellow"><div class="dot yellow"></div> Буде корисно (5–7)</div>
+  <div class="legend-item red"><div class="dot red"></div> Менш важливо (1–4)</div>
+</div>
+
+<div class="list">
+
+  <!-- Priority 10 - GPU -->
+  <a class="card green" href="https://hard.rozetka.com.ua/ua/videocards/c80087/21330=geforce-rtx-5070/" target="_blank">
+    <div class="priority-badge">10</div>
+    <div class="card-info">
+      <div class="card-category">Відеокарта</div>
+      <div class="card-name">NVIDIA GeForce RTX 5070 12GB</div>
+      <div class="card-price">~30 000+ ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 10 - RAM -->
+  <a class="card green" href="https://hard.rozetka.com.ua/memory/c80081/producer=corsair;21250=6400-mgts/" target="_blank">
+    <div class="priority-badge">10</div>
+    <div class="card-info">
+      <div class="card-category">Оперативна пам'ять</div>
+      <div class="card-name">Corsair Vengeance DDR5 32GB 6400MHz</div>
+      <div class="card-price">19 299 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 9 - CPU -->
+  <a class="card green" href="https://hard.rozetka.com.ua/amd-100-000000592/p413207367/" target="_blank">
+    <div class="priority-badge">9</div>
+    <div class="card-info">
+      <div class="card-category">Процесор</div>
+      <div class="card-name">AMD Ryzen 7 7700 3.8(5.3)GHz sAM5</div>
+      <div class="card-price">9 499 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 9 - SSD -->
+  <a class="card green" href="https://hard.rozetka.com.ua/ua/kingston-snv3s-2000g/p444146651/" target="_blank">
+    <div class="priority-badge">9</div>
+    <div class="card-info">
+      <div class="card-category">SSD накопичувач</div>
+      <div class="card-name">Kingston NV3 2TB M.2 NVMe</div>
+      <div class="card-price">10 889 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 8 - Motherboard -->
+  <a class="card green" href="https://hard.rozetka.com.ua/ua/gigabyte-b650-gaming-x-ax-v2/p419440389/" target="_blank">
+    <div class="priority-badge">8</div>
+    <div class="card-info">
+      <div class="card-category">Материнська плата</div>
+      <div class="card-name">Gigabyte B650 Gaming X AX V2</div>
+      <div class="card-price">6 999 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 8 - PSU -->
+  <a class="card green" href="https://telemart.ua/powersuply/filter/power-1201-1500/" target="_blank">
+    <div class="priority-badge">8</div>
+    <div class="card-info">
+      <div class="card-category">Блок живлення</div>
+      <div class="card-name">APNX MAX G1 1200W Full Modular</div>
+      <div class="card-price">8 299 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Telemart <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 7 - Cooler -->
+  <a class="card yellow" href="https://hard.rozetka.com.ua/arctic-acfre00180a/p520444379/" target="_blank">
+    <div class="priority-badge">7</div>
+    <div class="card-info">
+      <div class="card-category">Рідинне охолодження</div>
+      <div class="card-name">Arctic Liquid Freezer III Pro 360</div>
+      <div class="card-price">5 299 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 6 - Case -->
+  <a class="card yellow" href="https://hard.rozetka.com.ua/ua/cougar-mx600-rgb/p423898086/" target="_blank">
+    <div class="priority-badge">6</div>
+    <div class="card-info">
+      <div class="card-category">Корпус</div>
+      <div class="card-name">Cougar MX600 RGB Tempered Glass</div>
+      <div class="card-price">4 799 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 5 - HDD -->
+  <a class="card yellow" href="https://hard.rozetka.com.ua/western_digital_wd82purz/p92544602/" target="_blank">
+    <div class="priority-badge">5</div>
+    <div class="card-info">
+      <div class="card-category">HDD диск</div>
+      <div class="card-name">WD Purple Surveillance 8TB 3.5"</div>
+      <div class="card-price">4 999 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+  <!-- Priority 3 - Thermal paste -->
+  <a class="card red" href="https://hard.rozetka.com.ua/cooling/c80083/producer=arctic/" target="_blank">
+    <div class="priority-badge">3</div>
+    <div class="card-info">
+      <div class="card-category">Термопаста</div>
+      <div class="card-name">Arctic MX-7 4g</div>
+      <div class="card-price">249 ₴</div>
+    </div>
+    <div class="card-right">
+      <span class="buy-btn">Rozetka <span class="arrow">↗</span></span>
+    </div>
+  </a>
+
+</div>
+
+<div class="total">
+  <div class="total-inner">
+    <div>
+      <div class="total-label">Загальна сума</div>
+      <div class="total-amount">$$$</div>
+    </div>
+    <div class="total-note">
+      Можна скинутися на будь-яку деталь — кожна допомагає зібрати ПК мрії 🖥️ 😊😘
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
